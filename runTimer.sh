@@ -9,6 +9,7 @@ done
 #sleep 30
 
 echo "Started"
-rosbag record /camera/color/camera_info /camera/color/image_raw /camera/depth_registered/points /tf --duration=10 -O "${filename}"
+# rosbag record /camera/color/camera_info /camera/color/image_raw /camera/depth_registered/points /tf --duration=5 -O "${filename}"
+rosbag record /keypoint_3d_matching /tf --duration=5 -O "${filename}"
 
 echo "Finished"
