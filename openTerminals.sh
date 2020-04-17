@@ -3,7 +3,7 @@
 play_file=$1
 record_file=$2
 
-xterm -geometry 96x24+2000+0 -hold -e "roslaunch openpose_utils_launch whole_pipeline_realsense_with_marker.launch" &
+xterm -geometry 96x24+0+0 -hold -e "roslaunch openpose_utils_launch whole_pipeline_realsense_with_marker.launch" &
 pid1="$!"
 sleep 2
 
@@ -12,7 +12,7 @@ pid2="$!"
 sleep 2
 
 echo "Recording ${record_file} on demand"
-xterm -geometry 96x24+2000-0 -hold -e "rosbag record /keypoint_3d_matching /tf -O "${record_file}" __name:=my_bag " &
+xterm -geometry 96x24+0-0 -hold -e "rosbag record /keypoint_3d_matching -O "${record_file}" __name:=my_bag " &
 pid4="$!"
 
 echo "Playing ${play_file} on demand"
@@ -29,5 +29,7 @@ kill "$pid1"
 kill "$pid2"
 kill "$pid3"
 kill "$pid4"
+
+sleep 5
 
 exit 0
