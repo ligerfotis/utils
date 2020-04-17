@@ -6,7 +6,7 @@ participant=$1
 
 echo "Participant number: ${participant}"
 
-for i in {1..3}
+for i in {3..3}
 	do
 	BASE_DIR="/home/ligerfotis/CSE6963_rosbag_data/Experiment2"
 	SUB_DIR="Participant_${participant}$i"
@@ -23,7 +23,7 @@ for i in {1..3}
 	fi
 
 	GESTURES=("cube" "polygon" "cup" "botle" "plate")
-	# GESTURES=("cube" )
+	#GESTURES=("plate" )
 
 	for ((j=0; j< ${#GESTURES[@]}; j++ ))
 	do	
@@ -35,9 +35,10 @@ for i in {1..3}
 	    exit 1
 		fi
 		
-		file="${GESTURES[j]}_${participant}.bag"
+		file="${GESTURES[j]}_${participant}$i.bag"
 
 		./CSE6963_rosbag_data/openTerminals.sh "${DIRE}/${file}" "${DIRE}/kp_${file}"
+		python ~/catkin_ws/src/rosbag_pandas/scripts/bag_csv -b "${DIRE}/kp_${file}" -o "${DIRE}/kp_${GESTURES[j]}_${participant}$i.csv"
 
 		
 	done
@@ -45,9 +46,3 @@ for i in {1..3}
 	echo "${BASE_DIR} for Participant ${participant} is over"
 done
 
-
-
-
-# gnome-terminal --command "roscore" &
-# gnome-terminal --command "roslaunch openpose_utils_launch whole_pipeline_realsense_with_marker.launch" &
-# gnome-terminal --command "roslaunch keypoint_3d_matching keypoint_3d_matching.launch " &
